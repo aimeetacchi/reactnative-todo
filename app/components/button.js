@@ -33,7 +33,6 @@ var styles = StyleSheet.create({
         height: 50,
         color: 'white',
         backgroundColor: '#c06c84',
-        // transition: all .5s ease-out
     }
 })
 

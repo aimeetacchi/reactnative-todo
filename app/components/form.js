@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import Button from './button';
 import Todo from './todo';
-
 const uuidv1 = require('uuid/v1');
 
 export default class FormComponent extends Component {
@@ -10,14 +9,7 @@ export default class FormComponent extends Component {
     constructor(props){
         super(props)
         this.state = {
-            todos: [
-                {
-                    id: uuidv1(),
-                    item: 'Clean my room',
-                    complete: false,
-                    edit: false,
-                    }
-            ],
+            todos: [ ],
             submitted: false,
         }
     }
@@ -139,27 +131,25 @@ export default class FormComponent extends Component {
     }
 
     render() {
-     
+    //  console.log(this.state.todos.length)
     return (
     <React.Fragment>
        
-        <TextInput ref= "item" returnKeyType="go" placeholder="Add your todo..." style={styles.input}/>
+        <TextInput ref="item" returnKeyType="go" placeholder="Add your todo..." style={styles.input}/>
         <TouchableHighlight style={styles.button} onPress={this.handleSubmit} underlayColor='#99d9f4'>
-        <Text style={styles.buttonText}>Add Todo</Text>
+            <Text style={styles.buttonText}>Add Todo</Text>
         </TouchableHighlight>
 
-
-
-          
             {/* ===== TODO LIST ====== */}
             <View style={styles.todolist}>
                 <Text style={styles.todolisttext}>Your Todos</Text>
                 
-                {this.state.todos.length === 0 ? <Text>List is empty try adding a todo</Text> : 
+                {this.state.todos.length === 0 ? 
+                <Text style={styles.p}>List is empty try adding a todo</Text>
+                : 
                 <React.Fragment>
 
                          {/* TODO COMPONENT RENDERS HERE */}
-
                         <View style={styles.scrollcontainer}>
                             <ScrollView>
                                 {
@@ -172,20 +162,16 @@ export default class FormComponent extends Component {
                                     editToDo={this.editToDo}
                                     removeToDo={this.removeToDo}
                                     />)
-                                }
-
-
-                                 {/* CLEAR ALL BUTTON */}
-                                <View className="clearAll">
+                                }  
+                            </ScrollView>
+                            {/* CLEAR ALL BUTTON */}
+                                <View style={styles.clearAll}>
                                     <Button
-                                    // passing props to button component
+                                        // passing props to button component
                                         name="Clear All Todos"
                                         func={this.removeAll} nameClass="clear"
                                     /> 
                                 </View>
-                            </ScrollView>
-
-                           
                         </View>
                 </React.Fragment>}
                
@@ -203,8 +189,14 @@ var styles = StyleSheet.create({
     todolist: {
 
     },
+    p: {
+        color: 'white',
+    },
     todolisttext: {
         color: '#fff',
+        textAlign: 'center',
+        marginVertical: 10,
+        fontSize: 22,
     },
     input: {
         marginHorizontal: 20,
@@ -226,6 +218,11 @@ var styles = StyleSheet.create({
         alignSelf: 'center',
         fontSize: 16,
         color: '#fff',
-      } 
+      },
+    clearAll: {
+        margin: 1,
+        borderWidth: 1,
+        borderColor: 'red'
+      }
   });
   
